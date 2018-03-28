@@ -31,14 +31,16 @@ android {
     buildTypes {
         debug {
             resValue "bool", "is_release", "false"
-            buildConfigField "String", "TOKEN", "\"tairoroberto:81d17a6307d32d34d992ff356e53d81003c6175f\""
+            buildConfigField "String", "TOKEN_1", "\"tairoroberto:3b4e9f33e40be5b9112\""
+            buildConfigField "String", "TOKEN_2", "\"f8a25059b46b06d2da5c7\""
             minifyEnabled false
             testCoverageEnabled false
         }
 
         release {
             resValue "bool", "is_release", "true"
-            buildConfigField "String", "TOKEN", "\"tairoroberto:81d17a6307d32d34d992ff356e53d81003c6175f\""
+            buildConfigField "String", "TOKEN_1", "\"tairoroberto:3b4e9f33e40be5b9112\""
+            buildConfigField "String", "TOKEN_2", "\"f8a25059b46b06d2da5c7\""
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.release

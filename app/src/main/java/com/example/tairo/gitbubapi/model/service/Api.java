@@ -13,6 +13,6 @@ import retrofit2.http.Headers;
 public interface Api {
     @GET("/repositories")
     @Headers({"Accept:application/vnd.github.v3+json",
-            "Authorization:" + BuildConfig.TOKEN})
+            "Authorization:" + BuildConfig.TOKEN_1 + BuildConfig.TOKEN_2})
     Call<List<Repository>> getRepositories();
 }
