@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gitbub Api</string>
+    <string name="action_settings">Settings</string>
+    <string name="repositories_not_found">Repositories not found</string>
+</resources>
