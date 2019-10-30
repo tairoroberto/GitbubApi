@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Repository implements Parcelable {
+public class User implements Parcelable {
 
     @SerializedName("archive_url")
     private String archiveUrl;
@@ -98,11 +98,11 @@ public class Repository implements Parcelable {
     @SerializedName("url")
     private String url;
 
-    public Repository() {
+    public User() {
     }
 
 
-    protected Repository(Parcel in) {
+    protected User(Parcel in) {
         archiveUrl = in.readString();
         assigneesUrl = in.readString();
         blobsUrl = in.readString();
@@ -156,15 +156,15 @@ public class Repository implements Parcelable {
         url = in.readString();
     }
 
-    public static final Creator<Repository> CREATOR = new Creator<Repository>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Repository createFromParcel(Parcel in) {
-            return new Repository(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Repository[] newArray(int size) {
-            return new Repository[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 

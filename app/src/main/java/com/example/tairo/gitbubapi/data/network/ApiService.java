@@ -1,4 +1,4 @@
-package com.example.tairo.gitbubapi.model.service;
+package com.example.tairo.gitbubapi.data.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

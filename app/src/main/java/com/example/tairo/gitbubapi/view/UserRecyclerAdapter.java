@@ -2,8 +2,8 @@ package com.example.tairo.gitbubapi.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +12,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tairo.gitbubapi.R;
-import com.example.tairo.gitbubapi.model.Repository;
+import com.example.tairo.gitbubapi.model.User;
 
 import java.util.List;
 
 import static com.example.tairo.gitbubapi.utils.ImageUtil.loadImage;
 
-public class RepositoryRecyclerAdapter extends RecyclerView.Adapter<RepositoryRecyclerAdapter.ViewHolder> {
+public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapter.ViewHolder> {
 
-    private List<Repository> repositories;
+    private List<User> users;
 
-    public RepositoryRecyclerAdapter(List<Repository> repositories) {
-        this.repositories = repositories;
+    public UserRecyclerAdapter(List<User> users) {
+        this.users = users;
     }
 
     @NonNull
@@ -35,18 +35,18 @@ public class RepositoryRecyclerAdapter extends RecyclerView.Adapter<RepositoryRe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Repository repository = repositories.get(position);
-        holder.bind(repository);
+        User user = users.get(position);
+        holder.bind(user);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(repository.getHtmlUrl()));
+            intent.setData(Uri.parse(user.getHtmlUrl()));
             holder.itemView.getContext().startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return repositories.size();
+        return users.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,17 +66,17 @@ public class RepositoryRecyclerAdapter extends RecyclerView.Adapter<RepositoryRe
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
         }
 
-        void bind(Repository repository) {
-            loadImage(repository.getOwner().getAvatarUrl(), imageView, progressBar);
-            textViewName.setText(repository.getName());
-            textViewLink.setText(repository.getHtmlUrl());
-            textViewDescription.setText(repository.getDescription());
+        void bind(User user) {
+            loadImage(user.getOwner().getAvatarUrl(), imageView, progressBar);
+            textViewName.setText(user.getName());
+            textViewLink.setText(user.getHtmlUrl());
+            textViewDescription.setText(user.getDescription());
         }
     }
 
-    public void update(List<Repository> repositories) {
-        this.repositories.clear();
-        this.repositories.addAll(repositories);
+    public void update(List<User> users) {
+        this.users.clear();
+        this.users.addAll(users);
         notifyDataSetChanged();
     }
 }

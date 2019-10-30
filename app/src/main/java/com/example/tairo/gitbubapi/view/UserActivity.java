@@ -4,32 +4,34 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tairo.gitbubapi.R;
-import com.example.tairo.gitbubapi.contract.RepositoryContract;
-import com.example.tairo.gitbubapi.model.Repository;
-import com.example.tairo.gitbubapi.presenter.RepositoryPresenter;
+import com.example.tairo.gitbubapi.contract.UserContract;
+import com.example.tairo.gitbubapi.model.User;
+import com.example.tairo.gitbubapi.presenter.UserPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoryActivity extends AppCompatActivity implements RepositoryContract.View {
+public class UserActivity extends AppCompatActivity implements UserContract.View {
 
-    private RepositoryRecyclerAdapter adapter;
-    private List<Repository> repositories = new ArrayList<>();
+    private UserRecyclerAdapter adapter;
+    private List<User> users = new ArrayList<>();
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progress;
     private TextView textViewNotFound;
-    private RepositoryContract.Presenter presenter;
+    private UserContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,12 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new RepositoryPresenter();
-        presenter.attachView(this);
+        presenter = new UserPresenter();
+        presenter.init(this);
 
         initViews();
         setRecyclerView();
-        getAllRepositories();
+        getAllUsers();
     }
 
     private void initViews() {
@@ -54,16 +56,15 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
     }
 
     private void setRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
-        adapter = new RepositoryRecyclerAdapter(repositories);
+        adapter = new UserRecyclerAdapter(users);
         recyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setOnRefreshListener(this::getAllRepositories);
+        swipeRefreshLayout.setOnRefreshListener(this::getAllUsers);
     }
 
-    private void getAllRepositories() {
-        presenter.getAllRepositories();
+    private void getAllUsers() {
+        presenter.getAllUsers();
     }
 
     @Override
@@ -100,9 +101,9 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
     }
 
     @Override
-    public void showRepositories(List<Repository> repositories) {
-        if (!repositories.isEmpty()) {
-            adapter.update(repositories);
+    public void showUsers(List<User> users) {
+        if (!users.isEmpty()) {
+            adapter.update(users);
             textViewNotFound.setVisibility(View.GONE);
         } else {
             textViewNotFound.setVisibility(View.VISIBLE);
@@ -111,7 +112,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
     }
 
     @Override
-    public void showRepositorytError(Throwable t) {
+    public void showUserError(Throwable t) {
         textViewNotFound.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -119,6 +120,6 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+        presenter.destroy();
     }
 }

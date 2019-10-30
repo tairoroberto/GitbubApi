@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
 
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.example.tairo.gitbubapi"
@@ -11,7 +10,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -60,16 +59,17 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /*###################### Android support  libs ###############################*/
-    implementation "com.android.support:appcompat-v7:${rootProject.supportLibs}"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
-    implementation "com.android.support:design:${rootProject.supportLibs}"
-    implementation "com.android.support:support-vector-drawable:${rootProject.supportLibs}"
-    implementation "com.android.support:cardview-v7:${rootProject.supportLibs}"
-    implementation "com.android.support:multidex:${rootProject.multidex}"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     /*############################################################################*/
 
     /*############################ Retrofit ######################################*/
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.rxjava}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxandroid}"
     implementation "com.squareup.retrofit2:retrofit:${rootProject.retrofit}"
     /*############################################################################*/
 
@@ -89,8 +89,8 @@ dependencies {
 
     /*############################### Test ibs ###################################*/
     testImplementation "junit:junit:${rootProject.junit}"
-    androidTestImplementation "com.android.support.test:runner:${rootProject.runner}"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:${rootProject.espresso}", {
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
