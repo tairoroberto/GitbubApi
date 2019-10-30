@@ -4,16 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.tairo.gitbubapi.R;
 import com.example.tairo.gitbubapi.contract.UserContract;
@@ -45,7 +44,8 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
 
         initViews();
         setRecyclerView();
-        getAllUsers();
+
+        presenter.getAllUsers();
     }
 
     private void initViews() {
@@ -60,11 +60,7 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
         recyclerView.setHasFixedSize(true);
         adapter = new UserRecyclerAdapter(users);
         recyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setOnRefreshListener(this::getAllUsers);
-    }
-
-    private void getAllUsers() {
-        presenter.getAllUsers();
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.getAllUsers());
     }
 
     @Override
